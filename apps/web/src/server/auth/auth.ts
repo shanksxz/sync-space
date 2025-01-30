@@ -1,5 +1,11 @@
 import { env } from "@/env.js";
-import { accounts, db, sessions, users, verifications } from "@syncspace/database";
+import {
+	accounts,
+	db,
+	sessions,
+	users,
+	verifications,
+} from "@syncspace/database";
 import { type BetterAuthOptions, betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
