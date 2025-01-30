@@ -1,0 +1,51 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "DATABASE_URL",
+    "GITHUB_ID",
+    "GITHUB_SECRET",
+    "BETTER_AUTH_URL",
+    "BETTER_AUTH_SECRET"
+  ],
+  "globalPassThroughEnv": [
+    "NODE_ENV"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "dist/**"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "format-and-lint": {
+      "dependsOn": [
+        "^format-and-lint"
+      ],
+      "outputs": []
+    },
+    "format-and-lint:fix": {
+      "dependsOn": [
+        "^format-and-lint:fix"
+      ],
+      "outputs": []
+    },
+    "db:migrate": {
+      "cache": false
+    },
+    "db:studio": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:generate": {
+      "cache": false
+    }
+  }
+}
