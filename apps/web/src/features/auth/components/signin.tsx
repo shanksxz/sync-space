@@ -9,7 +9,7 @@ import { toast } from "sonner";
 
 export default function SignIn() {
 	const [isHovered, setIsHovered] = useState(false);
-  const [pendingGithub, setPendingGithub] = useState(false);
+	const [pendingGithub, setPendingGithub] = useState(false);
 	const handleSignInWithGithub = async () => {
 		await authClient.signIn.social(
 			{
@@ -32,7 +32,7 @@ export default function SignIn() {
 		<Button
 			size="lg"
 			className="mb-8 transition-transform duration-200 ease-in-out transform hover:scale-105"
-      onClick={handleSignInWithGithub}
+			onClick={handleSignInWithGithub}
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
 		>

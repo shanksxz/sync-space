@@ -31,7 +31,7 @@ export const auth = betterAuth({
 					username: profile.login,
 					avatar: profile.avatar_url,
 				};
-			}
+			},
 		},
 	},
 	user: {

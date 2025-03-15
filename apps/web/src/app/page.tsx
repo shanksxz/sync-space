@@ -1,11 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Github } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { Github } from "lucide-react";
 
 function ElegantShape({
 	className,
@@ -65,7 +64,7 @@ function ElegantShape({
 						"backdrop-blur-[2px] border-2 border-white/[0.15]",
 						"shadow-[0_8px_32px_0_rgba(255,255,255,0.1)]",
 						"after:absolute after:inset-0 after:rounded-full",
-						"after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]"
+						"after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]",
 					)}
 				/>
 			</motion.div>
@@ -172,7 +171,7 @@ function HeroGeometric({
 							<br />
 							<span
 								className={cn(
-									"bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300 "
+									"bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300 ",
 								)}
 							>
 								{title2}
@@ -187,7 +186,8 @@ function HeroGeometric({
 						animate="visible"
 					>
 						<p className="text-base sm:text-lg md:text-xl text-white/40 mb-8 leading-relaxed font-light tracking-wide max-w-xl mx-auto px-4">
-							Import GitHub repositories, collaborate in real-time, and code together with your team from anywhere in the world.
+							Import GitHub repositories, collaborate in real-time, and code
+							together with your team from anywhere in the world.
 						</p>
 					</motion.div>
 
@@ -205,9 +205,7 @@ function HeroGeometric({
 								className="h-12 bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-indigo-500/50"
 							/>
 						</div>
-						<Button
-							className="h-12 px-6 bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white font-medium"
-						>
+						<Button className="h-12 px-6 bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white font-medium">
 							Join Waitlist
 						</Button>
 					</motion.div>
@@ -219,11 +217,13 @@ function HeroGeometric({
 	);
 }
 
-
 export default function DemoHeroGeometric() {
-	return <HeroGeometric
-		badge="Sync Space"
-		title1="Code Together"
-		title2="In Real-time"
-		repoUrl="https://github.com/shanksxz/sync-space" />
+	return (
+		<HeroGeometric
+			badge="Sync Space"
+			title1="Code Together"
+			title2="In Real-time"
+			repoUrl="https://github.com/shanksxz/sync-space"
+		/>
+	);
 }

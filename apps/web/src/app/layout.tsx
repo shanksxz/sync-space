@@ -6,7 +6,7 @@ import { TRPCReactProvider } from "@/trpc/react";
 
 export const metadata: Metadata = {
 	title: "SyncSpace",
-  description: "Collaborate on code in real-time. Share ideas. Build together.",
+	description: "Collaborate on code in real-time. Share ideas. Build together.",
 	icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 

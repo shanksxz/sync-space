@@ -6,7 +6,6 @@
     "dev": "turbo dev",
     "format-and-lint": "turbo format-and-lint --continue --",
     "format-and-lint:fix": "turbo format-and-lint:fix --continue --",
-    "ui": "pnpm --filter @syncspace/ui ui",
     "db:migrate": "turbo db:migrate",
     "db:studio": "turbo db:studio",
     "db:generate": "turbo db:generate",
@@ -15,9 +14,8 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@syncspace/database": "workspace:*",
-    "@syncspace/ui": "workspace:*",
+    "dotenv-cli": "^8.0.0",
     "husky": "^9.1.7",
-    "prettier": "catalog:",
     "turbo": "2.1.1"
   },
   "packageManager": "pnpm@9.12.0",
