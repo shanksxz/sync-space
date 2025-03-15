@@ -2,7 +2,7 @@
 
 import { authClient } from "@/server/auth/auth-client";
 import type { ErrorContext } from "@better-fetch/fetch";
-import { Button } from "@syncspace/ui/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Github } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";

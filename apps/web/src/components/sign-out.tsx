@@ -1,7 +1,7 @@
 "use client";
 
 import { authClient } from "@/server/auth/auth-client";
-import { Button } from "@syncspace/ui/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
