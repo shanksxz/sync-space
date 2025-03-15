@@ -1,5 +1,5 @@
 import { auth } from "@/server/auth/auth";
-import { db } from "@repo/database";
+import { db } from "@syncspace/database";
 /**
  * YOU PROBABLY DON'T NEED TO EDIT THIS FILE, UNLESS:
  * 1. You want to modify request context (see Part 1).

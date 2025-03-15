@@ -6,7 +6,7 @@
     "dev": "turbo dev",
     "format-and-lint": "turbo format-and-lint --continue --",
     "format-and-lint:fix": "turbo format-and-lint:fix --continue --",
-    "ui": "pnpm --filter @repo/ui ui",
+    "ui": "pnpm --filter @syncspace/ui ui",
     "db:migrate": "turbo db:migrate",
     "db:studio": "turbo db:studio",
     "db:generate": "turbo db:generate",
