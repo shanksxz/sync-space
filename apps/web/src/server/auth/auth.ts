@@ -29,7 +29,7 @@ export const auth = betterAuth({
 					name: profile.name,
 					email: profile.email,
 					username: profile.login,
-					avatar: profile.avatar_url,
+					image: profile.avatar_url,
 				};
 			},
 		},
@@ -39,6 +39,13 @@ export const auth = betterAuth({
 			username: {
 				type: "string",
 				unique: true,
+			},
+		},
+	},
+	session: {
+		additionalFields: {
+			accessToken: {
+				type: "string",
 			},
 		},
 	},

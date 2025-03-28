@@ -3,7 +3,16 @@ import { betterFetch } from "@better-fetch/fetch";
 import { type NextRequest, NextResponse } from "next/server";
 
 const authRoutes = ["/auth/signin", "/auth/signup"];
-const protectedRoutes = ["/dashboard", "/profile", "/settings"];
+const protectedRoutes = [
+	"/dashboard",
+	"/profile",
+	"/settings",
+	"/workspaces",
+	"/create-workspace",
+	"/workspace/:id",
+	"/teams",
+	"/create-team",
+];
 
 export async function middleware(request: NextRequest) {
 	const pathName = request.nextUrl.pathname;
@@ -13,6 +22,8 @@ export async function middleware(request: NextRequest) {
 	);
 
 	console.log("pathName", pathName);
+	console.log("isAuthRoute", isAuthRoute);
+	console.log("isProtectedRoute", isProtectedRoute);
 
 	if (!isAuthRoute && !isProtectedRoute) {
 		return NextResponse.next();

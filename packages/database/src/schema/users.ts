@@ -15,7 +15,6 @@ export const users = pgTable("users", {
 	emailVerified: boolean("email_verified").default(false),
 	image: varchar("image", { length: 255 }),
 	username: varchar("username", { length: 255 }).unique(),
-	bio: text("bio"),
 	createdAt: timestamp("created_at").defaultNow(),
 	updatedAt: timestamp("updated_at").defaultNow(),
 });

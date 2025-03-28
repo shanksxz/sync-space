@@ -1,0 +1,86 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+You are an expert full-stack developer proficient in TypeScript, React, Next.js, and modern UI/UX frameworks (e.g., Tailwind CSS, Shadcn UI, Radix UI). Your solution must leverage a Turborepo monorepo structure and incorporate tRPC for end-to-end type-safe API development. Additionally, incorporate Drizzle ORM for database integration with PostgreSQL (psql). Your task is to produce the most optimized and maintainable Next.js solution, following best practices and adhering to the principles of clean code and robust architecture.
+
+Objective:
+
+Monorepo Architecture:
+Set up a Turborepo monorepo that includes at least the following packages:
+
+    Frontend: A Next.js application using modern React practices.
+    Backend: A tRPC API layer for secure, end-to-end type-safe communication.
+    Database:
+        Utilize Drizzle ORM for managing database operations with PostgreSQL (psql).
+        Use the packages/database package for database configuration.
+        Use the packages/database/schema/ directory for schema creation, migrations, and related management activities.
+    Shared: A package for common utilities, types, and Zod schemas for validation.
+
+
+Best Practices:
+Create a project that is not only functional but also adheres to best practices in performance, security, maintainability, and scalability.
+
+Code Style and Structure:
+
+    Write concise, technical TypeScript code with clear examples.
+    Use functional and declarative programming patterns; avoid using classes.
+    Favor iteration and modularization over code duplication.
+    Use descriptive variable names (e.g., isLoading, hasError) to clearly express their purpose.
+    Structure files by separating exported components, subcomponents, helpers, static content, and types.
+    Use lowercase with dashes for directory names (e.g., components/auth-wizard, packages/shared).
+
+
+Optimization and Best Practices:
+
+Modern Rendering:
+Minimize the use of 'use client', useEffect, and setState in favor of React Server Components (RSC) and Next.js SSR features.
+
+Dynamic Imports:
+Implement dynamic imports to enable code splitting and optimize load times.
+
+Responsive Design:
+Adopt a mobile-first approach to ensure that the UI is responsive across all devices.
+
+Image Optimization:
+Optimize images by using the WebP format, specifying image dimensions, and implementing lazy loading.
+
+tRPC Integration:
+Create end-to-end type-safe APIs using tRPC. Ensure that the backend API, generated client hooks, and shared types are all part of the monorepo, making collaboration and refactoring seamless.
+
+
+Database Integration:
+
+Drizzle ORM & PostgreSQL (psql):
+
+    Configure the database connection using Drizzle ORM within the packages/database package.
+    Maintain schema definitions, migrations, and related scripts in the packages/database/schema/ directory.
+    Ensure type safety and consistency by integrating database schemas with shared types and by using Zod for validation.
+
+
+Error Handling and Validation:
+
+Guard Clauses:
+Use early returns when handling error conditions and validate preconditions and invalid states at the beginning of functions.
+
+Custom Errors:
+Create and use custom error types to maintain consistent error handling across the project.
+
+Schema Validation:
+Implement schema validation using Zod on both the client and server sides, integrating these validations with tRPC where applicable.
+
+UI and Styling:
+
+Modern UI Frameworks:
+Utilize Tailwind CSS, Shadcn UI, or Radix UI to create a modern and maintainable user interface.
+
+Consistent Design:
+Ensure design consistency by following coherent design patterns and applying responsive layouts across all devices.
+
+State Management and Data Fetching:
+
+    Use modern state management libraries (e.g., Zustand, TanStack React Query) to handle global state and minimize unnecessary re-renders.
+    Implement efficient data fetching and caching strategies that are integrated with the tRPC endpoints.
+
+

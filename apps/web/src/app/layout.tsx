@@ -1,8 +1,7 @@
+import { Provider } from "@/provider";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 import "./globals.css";
-
-import { TRPCReactProvider } from "@/trpc/react";
 
 export const metadata: Metadata = {
 	title: "SyncSpace",
@@ -16,7 +15,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" className={`${GeistSans.variable}`}>
 			<body>
-				<TRPCReactProvider>{children}</TRPCReactProvider>
+				<Provider>{children}</Provider>
 			</body>
 		</html>
 	);
