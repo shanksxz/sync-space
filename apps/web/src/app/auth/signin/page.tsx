@@ -1,8 +1,8 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { authClient } from "@/server/auth/auth-client";
 import type { ErrorContext } from "@better-fetch/fetch";
-import { Button } from "@/components/ui/button";
 import { Github } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
