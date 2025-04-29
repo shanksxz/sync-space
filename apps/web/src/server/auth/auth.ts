@@ -1,12 +1,24 @@
 import { env } from "@/env.js";
-import { convexAdapter } from "@better-auth-kit/convex";
+import {
+	accounts,
+	db,
+	sessions,
+	users,
+	verifications,
+} from "@syncspace/database";
 import { type BetterAuthOptions, betterAuth } from "better-auth";
-import { ConvexHttpClient } from "convex/browser";
-
-const convexClient = new ConvexHttpClient(env.CONVEX_URL);
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
 export const auth = betterAuth({
-	database: convexAdapter(convexClient),
+	database: drizzleAdapter(db, {
+		provider: "pg",
+		schema: {
+			user: users,
+			session: sessions,
+			account: accounts,
+			verification: verifications,
+		},
+	}),
 	socialProviders: {
 		github: {
 			clientId: env.GITHUB_ID,
@@ -17,7 +29,7 @@ export const auth = betterAuth({
 					name: profile.name,
 					email: profile.email,
 					username: profile.login,
-					image: profile.avatar_url,
+					avatar: profile.avatar_url,
 				};
 			},
 		},
