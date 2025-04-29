@@ -9,7 +9,7 @@
     "format-and-lint": "biome check ./src",
     "format-and-lint:fix": "biome check --write ./src",
     "with-env": "dotenv -e ../../.env --",
-    "db:migrate": "pnpm with-env tsx scripts/migration.ts",
+    "db:migrate": "pnpm with-env tsx ./src/scripts/migration.ts",
     "db:studio": "pnpm with-env drizzle-kit studio",
     "db:generate": "pnpm with-env drizzle-kit generate"
   },
