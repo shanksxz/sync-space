@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Github } from "lucide-react";
+import { Navbar } from "@/components/navbar";
 
 function ElegantShape({
 	className,
@@ -98,16 +98,7 @@ function HeroGeometric({
 
 	return (
 		<div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030303]">
-			<a
-				href={repoUrl}
-				target="_blank"
-				rel="noopener noreferrer"
-				className="absolute top-4 right-4 z-50 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200"
-				aria-label="GitHub Repository"
-			>
-				<Github className="h-6 w-6 text-white" />
-			</a>
-
+			<Navbar />
 			<div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.05] via-transparent to-rose-500/[0.05] blur-3xl" />
 			<div className="absolute inset-0 overflow-hidden">
 				<ElegantShape
