@@ -15,7 +15,11 @@
 				"useExhaustiveDependencies": "off"
 			},
 			"suspicious": {
-				"noExplicitAny": "off"
+				"noExplicitAny": "warn",
+				"noArrayIndexKey": "warn"
+			},
+			"a11y": {
+				"useFocusableInteractive": "off"
 			}
 		}
 	},

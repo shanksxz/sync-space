@@ -8,8 +8,8 @@ import {
 	SidebarProvider,
 	SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Provider } from "@/providers";
 import { Toaster } from "@/components/ui/sonner";
+import { Provider } from "@/providers";
 
 export default function RootLayout({
 	children,
@@ -18,7 +18,7 @@ export default function RootLayout({
 		<Provider>
 			<SidebarProvider>
 				<AppSidebar />
-			<SidebarInset>
+				<SidebarInset>
 					<div className="flex h-14 w-full items-center gap-2 px-4">
 						<SidebarTrigger className="-ml-1.5" />
 						<Separator
@@ -27,10 +27,10 @@ export default function RootLayout({
 						/>
 						<AppHeader />
 					</div>
-				<main className="p-6">{children}</main>
+					<main className="p-6">{children}</main>
 				</SidebarInset>
 			</SidebarProvider>
-            <Toaster />
+			<Toaster />
 		</Provider>
 	);
 }

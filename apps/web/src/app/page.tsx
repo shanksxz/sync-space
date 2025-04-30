@@ -1,10 +1,10 @@
 "use client";
 
+import { Navbar } from "@/components/navbar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Navbar } from "@/components/navbar";
 
 function ElegantShape({
 	className,

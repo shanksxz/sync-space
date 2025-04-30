@@ -30,7 +30,9 @@ export default function Signin() {
 	return (
 		<div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground">
 			<div className="w-full max-w-md px-6 py-8 flex flex-col items-center">
-				<p className="text-muted-foreground mb-4 text-center">Sign in below to get started</p>
+				<p className="text-muted-foreground mb-4 text-center">
+					Sign in below to get started
+				</p>
 				<div className="w-full">
 					<Button
 						variant="outline"
