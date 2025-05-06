@@ -19,7 +19,11 @@
 				"noArrayIndexKey": "warn"
 			},
 			"a11y": {
-				"useFocusableInteractive": "off"
+				"useFocusableInteractive": "off",
+				"useKeyWithClickEvents": "off"
+			},
+			"style": {
+				"noNonNullAssertion": "warn"
 			}
 		}
 	},
