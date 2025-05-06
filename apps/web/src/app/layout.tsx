@@ -1,7 +1,7 @@
+import { ThemeProvider } from "@/providers";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 import "./globals.css";
-
 import { TRPCReactProvider } from "@/trpc/react";
 
 export const metadata: Metadata = {
@@ -14,9 +14,13 @@ export default function RootLayout({
 	children,
 }: Readonly<{ children: React.ReactNode }>) {
 	return (
-		<html lang="en" className={`${GeistSans.variable}`}>
-			<body>
-				<TRPCReactProvider>{children}</TRPCReactProvider>
+		<html lang="en" suppressHydrationWarning>
+			<body className={GeistSans.className}>
+				<TRPCReactProvider>
+					<ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+						{children}
+					</ThemeProvider>
+				</TRPCReactProvider>
 			</body>
 		</html>
 	);

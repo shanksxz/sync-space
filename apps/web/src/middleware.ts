@@ -12,8 +12,6 @@ export async function middleware(request: NextRequest) {
 		pathName.startsWith(route),
 	);
 
-	console.log("pathName", pathName);
-
 	if (!isAuthRoute && !isProtectedRoute) {
 		return NextResponse.next();
 	}

@@ -11,12 +11,14 @@ export const env = createEnv({
 		GITHUB_ID: z.string(),
 		GITHUB_SECRET: z.string(),
 		DATABASE_URL: z.string().url(),
+		LIVE_BLOCKS_SECRET_KEY: z.string(),
+		LIVE_BLOCKS_PUBLIC_KEY: z.string(),
 		NODE_ENV: z
 			.enum(["development", "test", "production"])
 			.default("development"),
 	},
 	client: {
-		// NEXT_PUBLIC_CLIENTVAR: z.string(),
+		// NEXT_PUBLIC_LIVE_BLOCKS_PUBLIC_KEY: z.string(),
 	},
 	runtimeEnv: {
 		BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
@@ -24,6 +26,8 @@ export const env = createEnv({
 		GITHUB_ID: process.env.GITHUB_ID,
 		GITHUB_SECRET: process.env.GITHUB_SECRET,
 		DATABASE_URL: process.env.DATABASE_URL,
+		LIVE_BLOCKS_SECRET_KEY: process.env.LIVE_BLOCKS_SECRET_KEY,
+		LIVE_BLOCKS_PUBLIC_KEY: process.env.LIVE_BLOCKS_PUBLIC_KEY,
 		NODE_ENV: process.env.NODE_ENV,
 	},
 	skipValidation: !!process.env.SKIP_ENV_VALIDATION,

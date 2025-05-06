@@ -1,5 +1,16 @@
 "use client";
 
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -11,6 +22,7 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { CreateTeamDialog } from "@/features/teams/components/create-team";
+import { authClient } from "@/server/auth/auth-client";
 import { api } from "@/trpc/react";
 import {
 	type ColumnDef,
@@ -19,7 +31,10 @@ import {
 	useReactTable,
 } from "@tanstack/react-table";
 import { format } from "date-fns";
+import { RefreshCcw } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export type Team = {
 	id: string;
@@ -43,41 +58,6 @@ export type Team = {
 		};
 	}[];
 };
-
-const columns: ColumnDef<Team>[] = [
-	{
-		header: "Name",
-		accessorKey: "name",
-	},
-	{
-		header: "Owner",
-		accessorKey: "owner.name",
-	},
-	{
-		header: "Members",
-		id: "members",
-		cell: ({ row }) => row.original.teamMembers?.length || 0,
-	},
-	{
-		header: "Created",
-		accessorKey: "createdAt",
-		cell: ({ row }) => {
-			const createdAt = row.original.createdAt;
-			return createdAt ? format(createdAt, "PPP") : "Unknown";
-		},
-	},
-	{
-		header: "Actions",
-		id: "actions",
-		cell: ({ row }) => (
-			<div className="flex items-center gap-2">
-				<Button variant="ghost" size="sm" asChild>
-					<Link href={`/dashboard/teams/${row.original.id}`}>Manage</Link>
-				</Button>
-			</div>
-		),
-	},
-];
 
 interface TeamTableProps<TData, TValue> {
 	data: TData[];
@@ -138,7 +118,7 @@ function TeamTable<TData, TValue>({
 	);
 }
 
-function TeamTableSkeleton() {
+function TeamTableSkeleton({ columns }: { columns: ColumnDef<any, any>[] }) {
 	return (
 		<div className="rounded-md border">
 			<Table>
@@ -168,22 +148,155 @@ function TeamTableSkeleton() {
 }
 
 export default function TeamsPage() {
+	const { data: session } = authClient.useSession();
+	const userId = session?.user?.id || "";
+	const [teamToLeave, setTeamToLeave] = useState<Team | null>(null);
+	const [leaveDialogOpen, setLeaveDialogOpen] = useState(false);
+
 	const {
 		data: teams,
 		isLoading,
 		error,
 		refetch,
-	} = api.team.getTeamsWithMembers.useQuery();
+	} = api.team.getUserTeams.useQuery();
+
+	const leaveTeamMutation = api.team.leaveTeam.useMutation({
+		onSuccess: () => {
+			toast.success("You have left the team");
+			refetch();
+			setTeamToLeave(null);
+			setLeaveDialogOpen(false);
+		},
+		onError: (error) => {
+			toast.error(`Failed to leave team: ${error.message}`);
+		},
+	});
+
+	const handleLeaveTeam = () => {
+		if (!teamToLeave) return;
+		leaveTeamMutation.mutate({
+			teamId: teamToLeave.id,
+		});
+	};
+
+	const columns: ColumnDef<Team>[] = [
+		{
+			header: "Name",
+			accessorKey: "name",
+		},
+		{
+			header: "Owner",
+			accessorKey: "owner.name",
+		},
+		{
+			header: "Members",
+			id: "members",
+			cell: ({ row }) => row.original.teamMembers?.length || 0,
+		},
+		{
+			header: "Created",
+			accessorKey: "createdAt",
+			cell: ({ row }) => {
+				const createdAt = row.original.createdAt;
+				return createdAt ? format(createdAt, "PPP") : "Unknown";
+			},
+		},
+		{
+			header: "Actions",
+			id: "actions",
+			cell: ({ row }) => {
+				const isOwner = row.original.ownerId === userId;
+
+				if (isOwner) {
+					return (
+						<div className="flex items-center gap-2">
+							<Button variant="ghost" size="sm" asChild>
+								<Link href={`/dashboard/teams/${row.original.id}`}>Manage</Link>
+							</Button>
+						</div>
+					);
+				}
+				return (
+					<div className="flex items-center gap-2">
+						<AlertDialog
+							open={leaveDialogOpen && teamToLeave?.id === row.original.id}
+							onOpenChange={(open) => {
+								if (!open && !leaveTeamMutation.isPending) {
+									setLeaveDialogOpen(false);
+								}
+							}}
+						>
+							<AlertDialogTrigger asChild>
+								<Button
+									variant="ghost"
+									size="sm"
+									className="text-red-500 hover:text-red-700 hover:bg-red-100"
+									onClick={() => {
+										setTeamToLeave(row.original);
+										setLeaveDialogOpen(true);
+									}}
+								>
+									Leave
+								</Button>
+							</AlertDialogTrigger>
+							<AlertDialogContent>
+								<AlertDialogHeader>
+									<AlertDialogTitle>Leave Team?</AlertDialogTitle>
+									<AlertDialogDescription>
+										Are you sure you want to leave "{row.original.name}"? You'll
+										lose access to all team resources and will need to be
+										invited back to rejoin.
+									</AlertDialogDescription>
+								</AlertDialogHeader>
+								<AlertDialogFooter>
+									<AlertDialogCancel
+										disabled={leaveTeamMutation.isPending}
+										onClick={() => {
+											if (!leaveTeamMutation.isPending) {
+												setLeaveDialogOpen(false);
+											}
+										}}
+									>
+										Cancel
+									</AlertDialogCancel>
+									<AlertDialogAction
+										onClick={(e) => {
+											e.preventDefault();
+											handleLeaveTeam();
+										}}
+										disabled={leaveTeamMutation.isPending}
+										className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+									>
+										{leaveTeamMutation.isPending ? "Leaving..." : "Leave Team"}
+									</AlertDialogAction>
+								</AlertDialogFooter>
+							</AlertDialogContent>
+						</AlertDialog>
+					</div>
+				);
+			},
+		},
+	];
 
 	return (
 		<div className="flex flex-col space-y-6">
 			<div className="flex items-center justify-between">
 				<h1 className="text-3xl font-bold tracking-tight">Teams</h1>
-				<CreateTeamDialog onSuccess={() => refetch()} />
+				<div className="flex items-center gap-2">
+					<Button
+						title="Refresh"
+						variant="ghost"
+						size="sm"
+						onClick={() => refetch()}
+					>
+						<RefreshCcw className="h-4 w-4" />
+					</Button>
+					<CreateTeamDialog onSuccess={() => refetch()} />
+				</div>
 			</div>
 
 			{isLoading ? (
-				<TeamTableSkeleton />
+				<TeamTableSkeleton columns={columns} />
 			) : error ? (
 				<div className="rounded-md border p-8 text-center">
 					<p className="text-red-500">Error loading teams: {error.message}</p>
