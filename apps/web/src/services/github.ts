@@ -21,7 +21,7 @@ export class GitHubService {
 		});
 	}
 
-	async importRepository(owner: string, repo: string, branch, roomId: string) {
+	async importRepository(owner: string, repo: string, branch: string, roomId: string) {
 		console.log("Importing repository", owner, repo, branch, roomId);
 		const fileTree = new Map<string, FileMetadata>();
 		const yDoc = new Y.Doc();
